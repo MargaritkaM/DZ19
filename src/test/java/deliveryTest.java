@@ -14,7 +14,11 @@ public class deliveryTest {
 //    $("[input__box]").setValue("Самара");
 //    $("[placeholder=\"Город\"]").setValue("Москва");
 //    $x(".//span[@data-test-id='city']//input").setValue("Самара");
-$("[data-test-id=city] input.input__control").setValue("Москва");
+    $("[data-test-id=city] input").setValue("Москва");
+//$("[data-test-id=city] input.input__control").setValue("Москва");
+    $("[data-test-id=date] input.input__control").setValue("02.10.2022");
+//    $x(".//span[@data-test-id='date']//input").setValue("03.10.2022");
+        $("[data-test-id=name] input").setValue("Мусатова Маргарита");
     }
 
 }
