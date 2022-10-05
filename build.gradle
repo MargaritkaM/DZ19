@@ -19,10 +19,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation 'com.codeborne:selenide:6.6.4'
+    testImplementation 'com.codeborne:selenide:6.6.4'
 
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
 }
