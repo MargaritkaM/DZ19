@@ -13,14 +13,13 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class deliveryTest {
 
-//    @BeforeEach
-//    void setUp() {
-//        Configuration.holdBrowserOpen = true;
-//        open("http://localhost:9999");
-//    }
+    @BeforeEach
+    void setUp() {
+        Configuration.holdBrowserOpen = true;
+        open("http://localhost:9999");
+   }
     @Test
     void PositiveTestWithCssSelectors() {
-        open("http://localhost:9999");
         $("[data-test-id=city] input").setValue("Москва");
         $("[data-test-id=date] input.input__control").setValue("05.10.2022");
         $("[data-test-id=name] input").setValue("Мусатова Маргарита");
@@ -31,7 +30,6 @@ public class deliveryTest {
     }
     @Test
     void PositiveTestWithXpass (){
-        open("http://localhost:9999");
         $x(".//span[@data-test-id='city']//input").setValue("Самара");
         $x(".//input[@placeholder='Дата встречи']").doubleClick().sendKeys(Keys.DELETE);
         $x(".//input[@placeholder='Дата встречи']").setValue("10.10.2022");
@@ -44,7 +42,6 @@ public class deliveryTest {
     }
     @Test
     void PositiveTestWithCssSelectorThreeCityLettrs() {
-        open("http://localhost:9999");
         $("[data-test-id=city] input").sendKeys("Мос");
         $(byText("Москва")).click();
         $("[data-test-id=date] input.input__control").setValue("05.10.2022");
@@ -56,7 +53,6 @@ public class deliveryTest {
     }
     @Test
     void PositiveTestWithCssSelectorChoiceData() {
-        open("http://localhost:9999");
         $("[data-test-id=city] input").setValue("Москва");
         $("span>button").click();
         $(byCssSelector("td[data-day='1665522000000']")).click();
