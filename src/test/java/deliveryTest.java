@@ -2,6 +2,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -29,7 +30,9 @@ public class deliveryTest {
         //оставляет браузер открытым
         open ("http://localhost:9999/");
         $x(".//span[@data-test-id='city']//input").setValue("Самара");
-        $x(".//span[@data-test-id='date']//input[@placeholder]").setValue("08.10.2022");
+        $x(".//input[@placeholder='Дата встречи']").doubleClick().sendKeys(Keys.DELETE);
+        $x(".//input[@placeholder='Дата встречи']").setValue("10.10.2022");
+        $x(".//span[@data-test-id='date']//input[@value]").setValue("10.10.2022");
         $x(".//span[@data-test-id='name']//input").setValue("Мусатова Маргарита");
         $x(".//span[@data-test-id='phone']//input").setValue("+79169044591");
         $x(".//label[@data-test-id='agreement']").click();
