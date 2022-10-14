@@ -225,14 +225,15 @@ public class DeliveryTest {
         $("[data-test-id=city] input").sendKeys("Мос");
         $(byText("Москва")).click();
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id=date] input.input__control").setValue(planningDate);
+        $(byCssSelector("[data-day='1666472400000']")).click();
         $("[data-test-id=name] input").setValue("Мусатова Маргарита");
         $("[data-test-id=phone] input").setValue("+79169044591");
         $("[data-test-id='agreement']").click();
         $("div>button").click();
         $("[data-test-id='notification']").should(visible, Duration.ofSeconds(15));
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно забронирована на 23.10.2022" ), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
+
 }
