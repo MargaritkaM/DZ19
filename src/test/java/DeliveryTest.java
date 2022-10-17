@@ -3,8 +3,10 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
+import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +42,7 @@ public class DeliveryTest {
                 .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
+
     @Test
     void shouldNegativeTestDateWithCssSelectors() {
         String planningDate = generateDate(2);
@@ -221,19 +224,47 @@ public class DeliveryTest {
 
     @Test
     void shouldPositiveTestWithCssSelectorChoiceData() {
-        String planningDate = generateDate(14);
+        String planningDate = generateDate(7);
         $("[data-test-id=city] input").sendKeys("Мос");
         $(byText("Москва")).click();
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $(byCssSelector("[data-day='1666472400000']")).click();
+        if (planningDate == generateDate(3))
+        {
+            $(By.cssSelector("calendar__day calendar__day_state_current")).click();
+        }else
+        {
+            $(By.cssSelector("[data-day='1666558800000']")).click();
+        }
         $("[data-test-id=name] input").setValue("Мусатова Маргарита");
         $("[data-test-id=phone] input").setValue("+79169044591");
         $("[data-test-id='agreement']").click();
         $("div>button").click();
         $("[data-test-id='notification']").should(visible, Duration.ofSeconds(15));
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на 23.10.2022" ), Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно забронирована на 24.10.2022"), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
 
+    @Test
+    void shouldPositiveTestWithCssSelectorNearestData() {
+        String planningDate = generateDate(3);
+        $("[data-test-id=city] input").sendKeys("Мос");
+        $(byText("Москва")).click();
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        if (planningDate == generateDate(3))
+        {
+            $(By.cssSelector("calendar__day calendar__day_state_current")).click();
+        }else
+        {
+            $(By.cssSelector("[data-day='1666558800000']")).click();
+        }
+        $("[data-test-id=name] input").setValue("Мусатова Маргарита");
+        $("[data-test-id=phone] input").setValue("+79169044591");
+        $("[data-test-id='agreement']").click();
+        $("div>button").click();
+        $("[data-test-id='notification']").should(visible, Duration.ofSeconds(15));
+        $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на "+ planningDate), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);
+    }
 }
